@@ -92,6 +92,18 @@ public:
         else if(abs(a[o1][o2]) == 1){logic_error("INVALID VALUE"); playO();}
         else if(o1<0 or o1>=3 or o2 < 0 or o2 >= 3 ){logic_error("INVALID VALUE"); playO();}
     }
+
+    void apo_easy(){
+        int o1,o2;
+        cout << "O auto plays"<<endl;
+        o1 = rand()%3;
+        o2 = rand()%3;
+        while(a[o1][o2]!=0){
+            o1 = rand()%3;
+            o2 = rand()%3;
+        }
+        moveO(o1,o2);
+    }
     void print(){
         char c[3][3];
         for(int i = 0; i < 3;i++){
@@ -107,7 +119,7 @@ public:
         cout << "--+---+--" <<endl;
         cout << c[2][0] << " | " << c[2][1] << " | " <<c[2][2]<<endl;
     }
-    void play(){
+    void play_multi(){
         print();
         int t = 0;
         for(int i = 0; i < 2; i++){
@@ -129,11 +141,33 @@ public:
             t++;
         }
     }
+    void play_single_easy(){
+        print();
+        int t = 0;
+        for(int i = 0; i < 2; i++){
+            playX();
+            print();
+            apo_easy();
+            print();
+        }
+        while(true){
+            playX();
+            print();
+            if(t == 2){cout <<"DRAW"<<endl; break;}
+            else if(win() == 1){cout<<"X WINS" <<endl; break;}
+            else if(win() == -1){cout << "O WINS"<<endl; break;}
+            apo_easy();
+            print();
+            if(win() == 1){cout<<"X WINS" <<endl; break;}
+            else if(win() == -1){cout << "O WINS"<<endl; break;}
+            t++;
+        }
+    }
 };
 
 
 int main(){
     tictactoe s;
-    s.play();
+    s.play_single_easy();
 
 }
